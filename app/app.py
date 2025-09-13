@@ -2,8 +2,9 @@
 """
 Aplicación web de calculadora usando Flask.
 
-Esta aplicación proporciona una interfaz web para realizar operaciones matemáticas
-básicas (suma, resta, multiplicación y división) usando Flask como framework web.
+Esta aplicación proporciona una interfaz web para realizar
+operaciones matemáticas básicas (suma, resta, multiplicación y división)
+usando Flask como framework web.
 """
 
 import os
@@ -17,10 +18,12 @@ app = Flask(__name__)
 def index():
     """
     Ruta principal que maneja la interfaz de la calculadora.
-    
-    Maneja tanto solicitudes GET (mostrar formulario) como POST (procesar cálculo).
+
+    Maneja las solicitudes:
+    - GET (mostrar formulario)
+    - POST (procesar cálculo).
     Procesa las operaciones matemáticas y maneja errores de validación.
-    
+
     Returns:
         str: Respuesta HTML renderizada con el resultado del cálculo o errores.
     """
@@ -50,5 +53,6 @@ def index():
 
 
 if __name__ == "__main__":  # pragma: no cover
-    debug_mode = os.environ.get("FLASK_DEBUG", "False").lower() in ["true", "1", "yes"]
+    debug_env = os.environ.get("FLASK_DEBUG", "False").lower()
+    debug_mode = debug_env in ["true", "1", "yes"]
     app.run(debug=debug_mode, port=5000, host="0.0.0.0")
