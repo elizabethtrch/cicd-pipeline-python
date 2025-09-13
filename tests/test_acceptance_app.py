@@ -49,7 +49,8 @@ def find_elements(browser):
     num2_input = browser.find_element(By.NAME, "num2")
     operacion_select = Select(browser.find_element(By.NAME, "operacion"))
     calcular_button = browser.find_element(By.CSS_SELECTOR, "button[type='submit']")
-    return num1_input, num2_input, operacion_select, calcular_button
+    csrf_token = browser.find_element(By.NAME, "csrf_token")
+    return num1_input, num2_input, operacion_select, calcular_button, csrf_token
 
 @pytest.mark.parametrize(
     "num1, num2, operacion, resultado_esperado",
@@ -66,7 +67,11 @@ def test_calculadora(browser, num1, num2, operacion, resultado_esperado):
     browser.get(BASE_URL)
 
     # Encuentra los elementos de la página.  Esta vez con la funcion auxiliar.
-    num1_input, num2_input, operacion_select, calcular_button = find_elements(browser)
+    num1_input, num2_input, operacion_select, calcular_button, csrf_token = find_elements(browser)
+
+    # Verifica que el CSRF token está presente
+    assert csrf_token.get_attribute("value") is not None
+    assert len(csrf_token.get_attribute("value")) > 0
 
     #Realiza la operacion:
     num1_input.send_keys(num1)
