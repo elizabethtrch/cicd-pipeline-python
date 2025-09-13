@@ -9,9 +9,13 @@ usando Flask como framework web.
 
 import os
 from flask import Flask, render_template, request
+from flask_wtf.csrf import CSRFProtect
 from .calculadora import sumar, restar, multiplicar, dividir
 
+DEV_SECRET_KEY = "dev-secret-key-change-in-production"
 app = Flask(__name__)
+app.config["SECRET_KEY"] = os.environ.get("CSRF_SECRET_KEY", DEV_SECRET_KEY)
+csrf = CSRFProtect(app)
 
 
 @app.route("/", methods=["GET", "POST"])
