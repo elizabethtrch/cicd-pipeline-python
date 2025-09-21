@@ -22,3 +22,7 @@ acceptance_coverage.xml
 
 # IDE
 .vscode/
+
+## LLMs
+CLAUDE.md
+.claude
