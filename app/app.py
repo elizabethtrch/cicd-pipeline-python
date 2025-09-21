@@ -17,8 +17,9 @@ app = Flask(__name__)
 app.config["SECRET_KEY"] = os.environ.get("CSRF_SECRET_KEY", DEV_SECRET_KEY)
 csrf = CSRFProtect(app)
 app_port = int(os.environ.get("PORT", 5000))
-debug=False
+debug = False
 app.debug = debug
+
 
 @app.route("/health")
 def health():
