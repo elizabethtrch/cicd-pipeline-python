@@ -17,9 +17,9 @@ app = Flask(__name__)
 app.config["SECRET_KEY"] = os.environ.get("CSRF_SECRET_KEY", DEV_SECRET_KEY)
 csrf = CSRFProtect(app)
 app_port = int(os.environ.get("PORT", 5000))
-debug = False
-app.debug = debug
-
+DEBUG_ENV = os.environ.get("FLASK_DEBUG", "False").lower()
+DEBUG_MODE = DEBUG_ENV in ["true", "1", "yes"]
+app.debug = DEBUG_MODE
 
 @app.route("/health")
 def health():
@@ -65,6 +65,4 @@ def index():
 
 
 if __name__ == "__main__":  # pragma: no cover
-    debug_env = os.environ.get("FLASK_DEBUG", "False").lower()
-    debug_mode = debug_env in ["true", "1", "yes"]
-    app.run(debug=debug_mode, port=5000, host="0.0.0.0")
+    app.run(debug=DEBUG_MODE, port=5000, host="0.0.0.0")
