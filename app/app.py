@@ -21,6 +21,7 @@ DEBUG_ENV = os.environ.get("FLASK_DEBUG", "False").lower()
 DEBUG_MODE = DEBUG_ENV in ["true", "1", "yes"]
 app.debug = DEBUG_MODE
 
+
 @app.route("/health")
 def health():
     return "OK", 200
